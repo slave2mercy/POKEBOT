@@ -1,9 +1,12 @@
 import discord
 from discord.ext import commands
-from pokedex import pokedex  # Install it by pip install pokedex
+from pokedex import pokedex
 
 bot = commands.Bot(description='blablabla', command_prefix='blablabla')
 
+@bot.event()
+async def on_ready():
+        print('Ready to catch em all')
 
 @bot.command(
         name="pokemon")
@@ -12,7 +15,7 @@ async def _pokemon(ctx, *, pokemon):
 
         pokedex1 = pokedex.Pokedex(
             version='v1',
-            user_agent='ExampleApp (https://example.com, v2.0.1)')
+            user_agent='Pokemon https://pokemondb.net/pokedex/all, v2.0.1)')
         x = pokedex1.get_pokemon_by_name(f'''{pokemon}''')
         embed = discord.Embed(
             title=f'''{x[0]['name']}''',
@@ -74,3 +77,5 @@ async def _pokemon(ctx, *, pokemon):
             a = '-'
         embed.add_field(name='Notes', value=a, inline=False)
         await ctx.send(embed=embed)
+        
+bot.token('NTUxODk0NDM0Mzk3MTU5NDI2.D13oXQ.bYStyFdI-n0pT6B6SD7N_j08GgA')
